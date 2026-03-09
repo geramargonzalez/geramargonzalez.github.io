@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,14 +35,16 @@
 
       <!-- Links de navegación -->
       <nav class="navbar__nav" id="navMenu">
-        <a href="#sobre-mi" class="nav-link">Sobre mí</a>
+        <a href="#sobre-mi" class="nav-link" data-es="Sobre mí" data-en="About">Sobre mí</a>
         <a href="#skills"   class="nav-link">Skills</a>
-        <a href="#proyectos" class="nav-link">Proyectos</a>
-        <a href="#experiencia" class="nav-link">Experiencia</a>
-        <a href="#educacion" class="nav-link">Educación</a>
-        <a href="#licencias" class="nav-link">Licencias</a>
-        <a href="#contacto" class="nav-link">Contacto</a>
+        <a href="#proyectos" class="nav-link" data-es="Proyectos" data-en="Projects">Proyectos</a>
+        <a href="#experiencia" class="nav-link" data-es="Experiencia" data-en="Experience">Experiencia</a>
+        <a href="#educacion" class="nav-link" data-es="Educación" data-en="Education">Educación</a>
+        <a href="#licencias" class="nav-link" data-es="Licencias" data-en="Licenses">Licencias</a>
+        <a href="#contacto" class="nav-link" data-es="Contacto" data-en="Contact">Contacto</a>
       </nav>
+      <!-- Botón de idioma -->
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN</button>
     </div>
   </header>
 
@@ -76,7 +78,7 @@
           <!-- Badge académico destacado -->
           <div class="hero__academic-badge">
             <span class="badge-icon">🎓</span>
-            <span>Especialización en Ciencia de Datos e Inteligencia Artificial&nbsp;|&nbsp;<strong>UTEC + MIT</strong></span>
+            <span data-es="Especialización en Ciencia de Datos e Inteligencia Artificial&nbsp;|&nbsp;<strong>UTEC + MIT</strong>" data-en="Specialization in Data Science and Artificial Intelligence&nbsp;|&nbsp;<strong>UTEC + MIT</strong>">Especialización en Ciencia de Datos e Inteligencia Artificial&nbsp;|&nbsp;<strong>UTEC + MIT</strong></span>
           </div>
 
           <!-- Nombre -->
@@ -86,7 +88,7 @@
           <p class="hero__title">Technical Solutions Specialist · Oracle&nbsp;&nbsp;·&nbsp;&nbsp;NetSuite · Data &amp; AI</p>
 
           <!-- Descripción breve -->
-          <p class="hero__desc">
+          <p class="hero__desc" data-es="Más de 10 años conectando tecnología y negocio: de la docencia en programación a consultor NetSuite, y hoy Technical Solutions Specialist en Oracle. Apasionado por la automatización, los datos y la inteligencia artificial aplicada." data-en="10+ years bridging technology and business: from programming teacher to NetSuite consultant, and today Technical Solutions Specialist at Oracle. Passionate about automation, data, and applied artificial intelligence.">
             Más de 10 años conectando tecnología y negocio: de la docencia en programación
             a consultor NetSuite, y hoy Technical Solutions Specialist en Oracle.
             Apasionado por la automatización, los datos y la inteligencia artificial aplicada.
@@ -100,10 +102,9 @@
 
           <!-- Botones de acción -->
           <div class="hero__actions">
-            <a href="#proyectos" class="btn btn--primary">Ver proyectos</a>
-            <!-- Reemplazar href con la ruta real a tu CV -->
-            <a href="assets/CV.pdf" download class="btn btn--outline">Descargar CV</a>
-            <a href="#contacto" class="btn btn--ghost">Contacto</a>
+            <a href="#proyectos" class="btn btn--primary" data-es="Ver proyectos" data-en="View projects">Ver proyectos</a>
+            <a href="assets/CV.pdf" download class="btn btn--outline" data-es="Descargar CV" data-en="Download CV">Descargar CV</a>
+            <a href="#contacto" class="btn btn--ghost" data-es="Contacto" data-en="Contact">Contacto</a>
           </div>
         </div>
 
@@ -115,17 +116,17 @@
          ============================================= -->
     <section class="section about" id="sobre-mi">
       <div class="container">
-        <h2 class="section__title">Sobre mí</h2>
+        <h2 class="section__title" data-es="Sobre mí" data-en="About me">Sobre mí</h2>
         <div class="about__grid">
 
           <div class="about__body">
-            <p>
+            <p data-es="Soy <strong>Technical Solutions Specialist en Oracle</strong>, con más de una década de experiencia en el ecosistema NetSuite. Inicié mi carrera como profesor de programación en la educación técnica pública (ANEP–CETP), una etapa que me permitió desarrollar una sólida capacidad para comunicar conceptos complejos y comprender cómo las personas interactúan con la tecnología." data-en="I am a <strong>Technical Solutions Specialist at Oracle</strong>, with over a decade of experience in the NetSuite ecosystem. I started my career as a programming teacher in public technical education (ANEP–CETP), a stage that allowed me to develop a strong ability to communicate complex concepts and understand how people interact with technology.">
               Soy <strong>Technical Solutions Specialist en Oracle</strong>, con más de una década de experiencia
               en el ecosistema NetSuite. Inicié mi carrera como profesor de programación en la educación
               técnica pública (ANEP–CETP), una etapa que me permitió desarrollar una sólida capacidad
               para comunicar conceptos complejos y comprender cómo las personas interactúan con la tecnología.
             </p>
-            <p>
+            <p data-es="A lo largo de mi trayectoria, me desempeñé como <strong>Technical Consultant en Techfino LLC</strong> (EE. UU.), <strong>Principal Consultant y Technical Consultant en NetSuite</strong>, y <strong>NetSuite Administrator en En La Mano</strong>. En estos roles, desarrollé una sólida especialización en SuiteScript 2.x, integraciones REST/SOAP, flujos de trabajo, módulos financieros y operativos, así como en consultoría de implementación para clientes de distintos países." data-en="Throughout my career, I worked as <strong>Technical Consultant at Techfino LLC</strong> (USA), <strong>Principal Consultant and Technical Consultant at NetSuite</strong>, and <strong>NetSuite Administrator at En La Mano</strong>. In these roles, I developed deep expertise in SuiteScript 2.x, REST/SOAP integrations, workflows, financial and operational modules, and implementation consulting for clients across multiple countries.">
               A lo largo de mi trayectoria, me desempeñé como <strong>Technical Consultant en Techfino LLC</strong>
               (EE. UU.), <strong>Principal Consultant y Technical Consultant en NetSuite</strong>, y
               <strong>NetSuite Administrator en En La Mano</strong>. En estos roles, desarrollé una sólida
@@ -133,7 +134,7 @@
               financieros y operativos, así como en consultoría de implementación para clientes de
               distintos países.
             </p>
-            <p>
+            <p data-es="Cuento con <strong>6 certificaciones de Oracle NetSuite y Celigo</strong>, entre ellas SuiteCloud Developer II, SuiteAnalytics User y SuiteFoundation. Actualmente estoy cursando la <strong>Especialización en Ciencia de Datos e Inteligencia Artificial</strong> en <strong>UTEC</strong>, en colaboración con el <strong>MIT</strong>, donde aplico machine learning y análisis de datos a problemas reales dentro de mis proyectos académicos." data-en="I hold <strong>6 Oracle NetSuite and Celigo certifications</strong>, including SuiteCloud Developer II, SuiteAnalytics User and SuiteFoundation. I am currently enrolled in the <strong>Specialization in Data Science and Artificial Intelligence</strong> at <strong>UTEC</strong>, in collaboration with <strong>MIT</strong>, where I apply machine learning and data analysis to real problems in my academic projects.">
               Cuento con <strong>6 certificaciones de Oracle NetSuite y Celigo</strong>, entre ellas
               SuiteCloud Developer II, SuiteAnalytics User y SuiteFoundation. Actualmente estoy cursando
               la <strong>Especialización en Ciencia de Datos e Inteligencia Artificial</strong> en
@@ -146,13 +147,13 @@
           <div class="about__academic-card">
             <div class="academic-card">
               <div class="academic-card__icon">🎓</div>
-              <h3 class="academic-card__title">Formación en curso</h3>
-              <p class="academic-card__prog">Especialización en Ciencia de Datos e Inteligencia Artificial</p>
+              <h3 class="academic-card__title" data-es="Formación en curso" data-en="Current studies">Formación en curso</h3>
+              <p class="academic-card__prog" data-es="Especialización en Ciencia de Datos e Inteligencia Artificial" data-en="Specialization in Data Science and Artificial Intelligence">Especialización en Ciencia de Datos e Inteligencia Artificial</p>
               <div class="academic-card__inst">
                 <span class="inst-badge inst-badge--utec">UTEC</span>
                 <span class="inst-badge inst-badge--mit">MIT</span>
               </div>
-              <p class="academic-card__sub">Universidad Tecnológica del Uruguay<br/>en colaboración con el Massachusetts Institute of Technology</p>
+              <p class="academic-card__sub" data-es="Universidad Tecnológica del Uruguay<br/>en colaboración con el Massachusetts Institute of Technology" data-en="Universidad Tecnológica del Uruguay<br/>in collaboration with the Massachusetts Institute of Technology">Universidad Tecnológica del Uruguay<br/>en colaboración con el Massachusetts Institute of Technology</p>
             </div>
           </div>
 
@@ -166,7 +167,7 @@
     <section class="section skills" id="skills">
       <div class="container">
         <h2 class="section__title">Skills &amp; Stack</h2>
-        <p class="section__subtitle">Tecnologías y herramientas con las que trabajo a diario</p>
+        <p class="section__subtitle" data-es="Tecnologías y herramientas con las que trabajo a diario" data-en="Technologies and tools I work with daily">Tecnologías y herramientas con las que trabajo a diario</p>
 
         <!-- Grupos de skills — añadir o quitar tags según necesidad -->
         <div class="skills__groups">
@@ -183,7 +184,7 @@
           </div>
 
           <div class="skills__group">
-            <h3 class="skills__group-title">Desarrollo</h3>
+            <h3 class="skills__group-title" data-es="Desarrollo" data-en="Development">Desarrollo</h3>
             <div class="tags">
               <span class="tag">JavaScript</span>
               <span class="tag">Node.js</span>
@@ -198,15 +199,15 @@
             <h3 class="skills__group-title">Data &amp; AI</h3>
             <div class="tags">
               <span class="tag tag--accent">Machine Learning</span>
-              <span class="tag tag--accent">Inteligencia Artificial</span>
-              <span class="tag tag--accent">Análisis de Datos</span>
+              <span class="tag tag--accent" data-es="Inteligencia Artificial" data-en="Artificial Intelligence">Inteligencia Artificial</span>
+              <span class="tag tag--accent" data-es="Análisis de Datos" data-en="Data Analysis">Análisis de Datos</span>
               <span class="tag tag--accent">Python (Pandas, NumPy)</span>
               <span class="tag tag--accent">SQL Analytics</span>
             </div>
           </div>
 
           <div class="skills__group">
-            <h3 class="skills__group-title">Integraciones &amp; Herramientas</h3>
+            <h3 class="skills__group-title" data-es="Integraciones &amp; Herramientas" data-en="Integrations &amp; Tools">Integraciones &amp; Herramientas</h3>
             <div class="tags">
               <span class="tag">Integrations</span>
               <span class="tag">Automation</span>
@@ -226,8 +227,8 @@
          ============================================= -->
     <section class="section projects" id="proyectos">
       <div class="container">
-        <h2 class="section__title">Proyectos destacados</h2>
-        <p class="section__subtitle">Selección de proyectos personales y profesionales</p>
+        <h2 class="section__title" data-es="Proyectos destacados" data-en="Featured Projects">Proyectos destacados</h2>
+        <p class="section__subtitle" data-es="Selección de proyectos personales y profesionales" data-en="A selection of personal and professional projects">Selección de proyectos personales y profesionales</p>
 
         <div class="projects__grid">
 
@@ -236,7 +237,7 @@
             <img src="assets/mvd.jpg" alt="Mapa de Siniestros de Tránsito en Montevideo" class="project-card__cover">
             <div class="project-card__body">
               <h3 class="project-card__title">UTEC - Análisis de Siniestros de Tránsito (Montevideo 2022)</h3>
-              <p class="project-card__desc">
+              <p class="project-card__desc" data-es="Análisis exploratorio de datos abiertos de la Intendencia de Montevideo (2022) sobre siniestros de tránsito. Mediante Python, Pandas, Matplotlib, Seaborn y Plotly identifiqué patrones por día, hora, tipo de vehículo y zona geográfica. Los miércoles y tardes concentran el mayor riesgo; los motociclistas representan el 58% de los siniestros urbanos. Proyecto de la materia Fundamentos de Programación para Ciencia de Datos (UTEC)." data-en="Exploratory data analysis of open data from the Municipality of Montevideo (2022) on traffic accidents. Using Python, Pandas, Matplotlib, Seaborn and Plotly, I identified patterns by day, time, vehicle type and geographic area. Wednesdays and afternoons concentrate the highest risk; motorcyclists account for 58% of urban accidents. Project for the Fundamentals of Programming for Data Science course (UTEC).">
                 Análisis exploratorio de datos abiertos de la Intendencia de Montevideo (2022)
                 sobre siniestros de tránsito. Mediante Python, Pandas, Matplotlib, Seaborn y
                 Plotly identifiqué patrones por día, hora, tipo de vehículo y zona geográfica.
@@ -263,8 +264,8 @@
           <article class="project-card">
             <img src="assets/fielddetection.jpg" alt="Detección de campos en facturas con U-Net" class="project-card__cover">
             <div class="project-card__body">
-              <h3 class="project-card__title">Detección de Campos en Facturas mediante Segmentación Semántica con U-Net</h3>
-              <p class="project-card__desc">
+              <h3 class="project-card__title" data-es="Detección de Campos en Facturas mediante Segmentación Semántica con U-Net" data-en="Invoice Field Detection via Semantic Segmentation with U-Net">Detección de Campos en Facturas mediante Segmentación Semántica con U-Net</h3>
+              <p class="project-card__desc" data-es="Modelo de segmentación semántica basado en la arquitectura U-Net para detectar y localizar campos clave en imágenes de facturas (fecha, monto, proveedor, etc.). Incluye preprocesamiento de imágenes, entrenamiento del modelo y evaluación con métricas de segmentación. Proyecto de la especialización UTEC." data-en="Semantic segmentation model based on U-Net architecture to detect and locate key fields in invoice images (date, amount, vendor, etc.). Includes image preprocessing, model training and evaluation with segmentation metrics. UTEC specialization project.">
                 Modelo de segmentación semántica basado en la arquitectura U-Net para detectar
                 y localizar campos clave en imágenes de facturas (fecha, monto, proveedor, etc.).
                 Incluye preprocesamiento de imágenes, entrenamiento del modelo y evaluación
@@ -286,8 +287,8 @@
           <!-- ── PROYECTO 3 ── -->
           <article class="project-card">
             <div class="project-card__body">
-              <h3 class="project-card__title">Posting Job on Upwork — Automatización con IA</h3>
-              <p class="project-card__desc">
+              <h3 class="project-card__title" data-es="Posting Job on Upwork — Automatización con IA" data-en="Posting Job on Upwork — AI Automation">Posting Job on Upwork — Automatización con IA</h3>
+              <p class="project-card__desc" data-es="En el auge del mercado freelance global, muchos profesionales enfrentan dificultades para establecer tarifas competitivas. Este proyecto desarrolla modelos predictivos para estimar la tarifa horaria promedio (Hourly Rate) en base a habilidades, experiencia y factores del mercado, e identifica qué skills son más valorados por los clientes." data-en="In the boom of the global freelance market, many professionals struggle to set competitive rates. This project develops predictive models to estimate the average hourly rate based on skills, experience and market factors, and identifies which skills are most valued by clients.">
                 En el auge del mercado freelance global, muchos profesionales enfrentan dificultades
                 para establecer tarifas competitivas. Este proyecto desarrolla modelos predictivos para
                 estimar la tarifa horaria promedio (<em>Hourly Rate</em>) en base a habilidades,
@@ -379,7 +380,7 @@
          ============================================= -->
     <section class="section experience" id="experiencia">
       <div class="container">
-        <h2 class="section__title">Experiencia</h2>
+        <h2 class="section__title" data-es="Experiencia" data-en="Experience">Experiencia</h2>
 
         <div class="timeline">
 
@@ -391,8 +392,8 @@
                 <h3 class="timeline__role">Technical Solutions Specialist</h3>
                 <span class="timeline__period">Feb 2026 — Presente</span>
               </div>
-              <p class="timeline__company">Oracle &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; Híbrido</p>
-              <p class="timeline__desc">
+              <p class="timeline__company">Oracle &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; <span data-es="Híbrido" data-en="Hybrid">Híbrido</span></p>
+              <p class="timeline__desc" data-es="Soporte técnico especializado en soluciones Oracle. Asesoramiento a clientes en implementación, optimización y resolución de problemas en entornos NetSuite y productos Oracle Cloud." data-en="Specialized technical support for Oracle solutions. Advising clients on implementation, optimization and troubleshooting in NetSuite environments and Oracle Cloud products.">
                 Soporte técnico especializado en soluciones Oracle. Asesoramiento a clientes
                 en implementación, optimización y resolución de problemas en entornos NetSuite
                 y productos Oracle Cloud.
@@ -408,8 +409,8 @@
                 <h3 class="timeline__role">NetSuite Administrator</h3>
                 <span class="timeline__period">May 2025 — Ene 2026</span>
               </div>
-              <p class="timeline__company">En La Mano &nbsp;·&nbsp; Contrato &nbsp;·&nbsp; Híbrido</p>
-              <p class="timeline__desc">
+              <p class="timeline__company">En La Mano &nbsp;·&nbsp; <span data-es="Contrato" data-en="Contract">Contrato</span> &nbsp;·&nbsp; <span data-es="Híbrido" data-en="Hybrid">Híbrido</span></p>
+              <p class="timeline__desc" data-es="Administración y configuración de la plataforma NetSuite. Customización de flujos de trabajo, roles, formularios y reportes. Soporte a usuarios de negocio y gestión de integraciones con sistemas externos." data-en="Administration and configuration of the NetSuite platform. Customization of workflows, roles, forms and reports. Business user support and management of integrations with external systems.">
                 Administración y configuración de la plataforma NetSuite. Customización de
                 flujos de trabajo, roles, formularios y reportes. Soporte a usuarios de negocio
                 y gestión de integraciones con sistemas externos.
@@ -425,8 +426,8 @@
                 <h3 class="timeline__role">Technical Consultant</h3>
                 <span class="timeline__period">Nov 2022 — May 2025</span>
               </div>
-              <p class="timeline__company">Techfino LLC &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; Estados Unidos</p>
-              <p class="timeline__desc">
+              <p class="timeline__company">Techfino LLC &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; <span data-es="Estados Unidos" data-en="United States">Estados Unidos</span></p>
+              <p class="timeline__desc" data-es="Consultoría técnica en implementaciones NetSuite para clientes en Estados Unidos. Desarrollo de soluciones personalizadas con SuiteScript 2.x, integraciones REST/SOAP y configuración avanzada de módulos financieros y operativos." data-en="Technical consulting on NetSuite implementations for US-based clients. Development of custom solutions with SuiteScript 2.x, REST/SOAP integrations, and advanced configuration of financial and operational modules.">
                 Consultoría técnica en implementaciones NetSuite para clientes en Estados Unidos.
                 Desarrollo de soluciones personalizadas con SuiteScript 2.x, integraciones REST/SOAP
                 y configuración avanzada de módulos financieros y operativos.
@@ -443,7 +444,7 @@
                 <span class="timeline__period">Abr 2022 — Nov 2022</span>
               </div>
               <p class="timeline__company">NetSuite &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; Uruguay</p>
-              <p class="timeline__desc">
+              <p class="timeline__desc" data-es="Liderazgo de proyectos de implementación NetSuite. Coordinación con equipos de desarrollo de software, análisis funcional y acompañamiento a clientes durante el ciclo completo de implementación." data-en="Leadership of NetSuite implementation projects. Coordination with software development teams, functional analysis, and client guidance throughout the full implementation cycle.">
                 Liderazgo de proyectos de implementación NetSuite. Coordinación con equipos de
                 desarrollo de software, análisis funcional y acompañamiento a clientes durante
                 el ciclo completo de implementación.
@@ -460,7 +461,7 @@
                 <span class="timeline__period">Abr 2020 — Abr 2022</span>
               </div>
               <p class="timeline__company">NetSuite &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; Uruguay</p>
-              <p class="timeline__desc">
+              <p class="timeline__desc" data-es="Implementación y configuración de NetSuite ERP. Desarrollo de scripts y customizaciones, soporte post-implementación y capacitación de usuarios finales." data-en="NetSuite ERP implementation and configuration. Script and customization development, post-implementation support, and end-user training.">
                 Implementación y configuración de NetSuite ERP. Desarrollo de scripts y
                 customizaciones, soporte post-implementación y capacitación de usuarios finales.
               </p>
@@ -472,11 +473,11 @@
             <div class="timeline__marker"></div>
             <div class="timeline__content">
               <div class="timeline__header">
-                <h3 class="timeline__role">Profesor de Programación</h3>
+                <h3 class="timeline__role" data-es="Profesor de Programación" data-en="Programming Teacher">Profesor de Programación</h3>
                 <span class="timeline__period">Sep 2014 — Abr 2020</span>
               </div>
               <p class="timeline__company">ANEP – CETP &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; Uruguay</p>
-              <p class="timeline__desc">
+              <p class="timeline__desc" data-es="Docencia en programación y tecnología en educación técnica pública. Diseño de programas curriculares y formación de estudiantes en fundamentos de desarrollo de software." data-en="Teaching programming and technology in public technical education. Curriculum design and training students in software development fundamentals.">
                 Docencia en programación y tecnología en educación técnica pública. Diseño
                 de programas curriculares y formación de estudiantes en fundamentos de
                 desarrollo de software.
@@ -493,7 +494,7 @@
          ============================================= -->
     <section class="section education" id="educacion">
       <div class="container">
-        <h2 class="section__title">Educación</h2>
+        <h2 class="section__title" data-es="Educación" data-en="Education">Educación</h2>
 
         <div class="education__grid">
 
@@ -503,22 +504,22 @@
               <span class="inst-badge inst-badge--utec">UTEC</span>
               <span class="inst-badge inst-badge--mit">MIT</span>
             </div>
-            <h3 class="edu-card__title">Especialización en Ciencia de Datos e Inteligencia Artificial</h3>
+            <h3 class="edu-card__title" data-es="Especialización en Ciencia de Datos e Inteligencia Artificial" data-en="Specialization in Data Science and Artificial Intelligence">Especialización en Ciencia de Datos e Inteligencia Artificial</h3>
             <p class="edu-card__inst">UTEC – Universidad Tecnológica del Uruguay</p>
-            <p class="edu-card__detail">En colaboración con el Massachusetts Institute of Technology (MIT)</p>
+            <p class="edu-card__detail" data-es="En colaboración con el Massachusetts Institute of Technology (MIT)" data-en="In collaboration with the Massachusetts Institute of Technology (MIT)">En colaboración con el Massachusetts Institute of Technology (MIT)</p>
             <p class="edu-card__period">Mar 2025 — Mar 2026</p>
           </div>
 
           <!-- ── ORT ── -->
           <div class="edu-card">
-            <h3 class="edu-card__title">Analista en Tecnología de la Información</h3>
+            <h3 class="edu-card__title" data-es="Analista en Tecnología de la Información" data-en="Information Technology Analyst">Analista en Tecnología de la Información</h3>
             <p class="edu-card__inst">Universidad ORT Uruguay</p>
             <p class="edu-card__period">2012 — 2015</p>
           </div>
 
           <!-- ── UDELAR ── -->
           <div class="edu-card">
-            <h3 class="edu-card__title">Licenciatura en Ciencias de la Comunicación</h3>
+            <h3 class="edu-card__title" data-es="Licenciatura en Ciencias de la Comunicación" data-en="Degree in Communication Sciences">Licenciatura en Ciencias de la Comunicación</h3>
             <p class="edu-card__inst">Universidad de la República (UdelaR)</p>
             <p class="edu-card__period">Ene 2004 — Mar 2011</p>
           </div>
@@ -532,7 +533,7 @@
          ============================================= -->
     <section class="section education" id="licencias">
       <div class="container">
-        <h2 class="section__title">Licencias &amp; Certificaciones</h2>
+        <h2 class="section__title" data-es="Licencias &amp; Certificaciones" data-en="Licenses &amp; Certifications">Licencias &amp; Certificaciones</h2>
 
         <div class="education__grid">
 
@@ -581,8 +582,8 @@
          ============================================= -->
     <section class="section contact" id="contacto">
       <div class="container">
-        <h2 class="section__title">Contacto</h2>
-        <p class="section__subtitle">¿Tenés un proyecto, propuesta o consulta? <br/>Estoy disponible para conversar.</p>
+        <h2 class="section__title" data-es="Contacto" data-en="Contact">Contacto</h2>
+        <p class="section__subtitle" data-es="¿Tenés un proyecto, propuesta o consulta? &lt;br/&gt;Estoy disponible para conversar." data-en="Have a project, proposal or question? &lt;br/&gt;I'm available to talk.">¿Tenés un proyecto, propuesta o consulta? <br/>Estoy disponible para conversar.</p>
 
         <div class="contact__grid">
 
@@ -617,7 +618,7 @@
 
         <!-- CTA final -->
         <div class="contact__cta">
-          <a href="mailto:tuemail@ejemplo.com" class="btn btn--primary btn--lg">Escribirme un mensaje</a>
+          <a href="mailto:tuemail@ejemplo.com" class="btn btn--primary btn--lg" data-es="Escribirme un mensaje" data-en="Send me a message">Escribirme un mensaje</a>
         </div>
 
       </div>
@@ -631,7 +632,7 @@
   <footer class="footer">
     <div class="container footer__inner">
       <p>&copy; <span id="year"></span> Gerardo González &mdash; Montevideo, Uruguay</p>
-      <p class="footer__tagline">NetSuite · Data &amp; AI · Especialización UTEC + MIT</p>
+      <p class="footer__tagline" data-es="NetSuite · Data &amp; AI · Especialización UTEC + MIT" data-en="NetSuite · Data &amp; AI · UTEC + MIT Specialization">NetSuite · Data &amp; AI · Especialización UTEC + MIT</p>
     </div>
   </footer>
 
