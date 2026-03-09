@@ -383,7 +383,7 @@ h1, h2, h3, h4 {
   background:
     radial-gradient(ellipse 55% 70% at 78% 40%, rgba(79,70,229,.10) 0%, transparent 65%),
     radial-gradient(ellipse 40% 50% at 20% 80%, rgba(79,70,229,.06) 0%, transparent 60%),
-    #fafbff;
+    rgba(250,251,255,0.72);
   border-bottom: 1px solid var(--clr-border);
 }
 
