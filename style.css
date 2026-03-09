@@ -608,6 +608,18 @@ h1, h2, h3, h4 {
   transition: box-shadow var(--transition), transform var(--transition), border-top-color var(--transition);
 }
 
+.project-card__cover {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-card__cover {
+  transform: scale(1.03);
+}
+
 .project-card:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-5px);
