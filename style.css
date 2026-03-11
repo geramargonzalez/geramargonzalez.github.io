@@ -1042,15 +1042,16 @@ h1, h2, h3, h4 {
 
 .testimonial-card__email {
   display: inline-block;
-  font-size: 0.75rem;
-  color: var(--clr-accent);
+  font-size: 0.68rem;
+  color: var(--clr-text-muted);
   text-decoration: none;
-  margin-top: 4px;
-  transition: opacity 0.2s;
+  margin-top: 3px;
+  letter-spacing: 0.01em;
+  transition: color 0.2s;
 }
 
 .testimonial-card__email:hover {
-  opacity: 0.75;
+  color: var(--clr-accent);
   text-decoration: underline;
 }
 
