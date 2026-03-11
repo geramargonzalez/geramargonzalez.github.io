@@ -1062,6 +1062,63 @@ h1, h2, h3, h4 {
 }
 
 /* ─────────────────────────────────────────────────────────────
+   BEYOND WORK
+   ───────────────────────────────────────────────────────────── */
+.beyond__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.beyond-card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: 14px;
+  padding: 1.75rem 1.5rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.beyond-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.beyond-card__icon {
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+
+.beyond-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--clr-text);
+  margin: 0 0 0.5rem;
+}
+
+.beyond-card__body {
+  font-size: 0.85rem;
+  color: var(--clr-text-muted);
+  line-height: 1.6;
+  margin: 0 0 0.75rem;
+}
+
+.beyond-card__link {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--clr-accent);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.beyond-card__link:hover {
+  opacity: 0.75;
+  text-decoration: underline;
+}
+
+/* ─────────────────────────────────────────────────────────────
    WIP POPUP
    ───────────────────────────────────────────────────────────── */
 .wip-overlay {
