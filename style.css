@@ -1064,6 +1064,10 @@ h1, h2, h3, h4 {
 /* ─────────────────────────────────────────────────────────────
    BEYOND WORK
    ───────────────────────────────────────────────────────────── */
+.beyond {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
 .beyond__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
