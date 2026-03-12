@@ -298,9 +298,7 @@ h1, h2, h3, h4 {
   right: 0;
   z-index: 100;
   height: var(--navbar-h);
-  background: rgba(9, 14, 26, 0.96);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: #000000;
   border-bottom: 1px solid rgba(255,255,255,.08);
   transition: box-shadow var(--transition);
 }
@@ -330,7 +328,7 @@ h1, h2, h3, h4 {
 .navbar__brand:hover { opacity: 0.8; }
 
 .navbar__logo {
-  height: 36px;
+  height: 52px;
   width: auto;
   display: block;
   object-fit: contain;
