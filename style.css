@@ -328,7 +328,7 @@ h1, h2, h3, h4 {
 .navbar__brand:hover { opacity: 0.8; }
 
 .navbar__logo {
-  height: 70px;
+  height: 88px;
   width: auto;
   display: block;
   object-fit: contain;
