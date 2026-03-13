@@ -63,7 +63,7 @@
            ' target="_blank" rel="noopener noreferrer"' + dl + '>' + escHtml(l.label) + '</a>';
   }).join('');
 
-  // Secciones opcionales (context, methodology, results)
+  // Secciones fijas opcionales (context, methodology, results) — compatibilidad hacia atrás
   var sectionsHtml = [
     { key: 'context',     labelEs: 'Contexto',      labelEn: 'Context'      },
     { key: 'methodology', labelEs: 'Metodología',   labelEn: 'Methodology'  },
@@ -82,6 +82,32 @@
       '</div>'
     );
   }).join('');
+
+  // Secciones libres (generadas desde el admin)
+  // Cada sección: { title, blocks: [ {type:'text'|'image', content, caption?} ] }
+  if (Array.isArray(project.sections)) {
+    sectionsHtml += project.sections.map(function (sec, si) {
+      var blocksHtml = (sec.blocks || []).map(function (block) {
+        if (block.type === 'image') {
+          return (
+            '<figure class="project-detail__figure">' +
+              '<img src="' + escHtml(block.content) + '" alt="' + escHtml(block.caption || '') + '" class="project-detail__figure-img">' +
+              (block.caption ? '<figcaption class="project-detail__figure-caption">' + escHtml(block.caption) + '</figcaption>' : '') +
+            '</figure>'
+          );
+        }
+        // type === 'text'
+        return '<div class="project-detail__section-body">' + block.content + '</div>';
+      }).join('');
+
+      return (
+        '<div class="project-detail__section" data-free-section="' + si + '">' +
+          '<h3 class="project-detail__section-title">' + escHtml(sec.title) + '</h3>' +
+          blocksHtml +
+        '</div>'
+      );
+    }).join('');
+  }
 
   var rendered =
     '<div class="project-detail">' +

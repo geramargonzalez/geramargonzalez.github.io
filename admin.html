@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin · Nuevo Proyecto</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="admin-page">
+
+  <!-- ── Navbar mínima ── -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="index.html" class="navbar__brand">
+        <img src="assets/logo.png" alt="GG Logo" class="navbar__logo" />
+      </a>
+      <span class="admin-navbar-label">⚙️ Panel Admin</span>
+      <a href="index.html#proyectos" class="btn btn--sm btn--outline">← Volver al portfolio</a>
+    </div>
+  </header>
+
+  <!-- ── Header ── -->
+  <div class="admin-header">
+    <div class="container admin-header__inner">
+      <div>
+        <h1>Nuevo Proyecto</h1>
+        <p class="admin-header__sub">Completá el formulario y copiá el código generado en <code>projects-data.js</code></p>
+      </div>
+      <button class="btn btn--sm btn--primary" id="btnGenerate">⚡ Generar código</button>
+    </div>
+  </div>
+
+  <!-- ── Layout principal ── -->
+  <div class="container admin-layout">
+
+    <!-- ════════════════ COLUMNA IZQUIERDA — FORMULARIO ════════════════ -->
+    <div id="formCol">
+
+      <!-- ── 1. Información básica ── -->
+      <div class="admin-panel">
+        <h2 class="admin-panel__title">📋 Información básica</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="fId">ID <span>(slug único, sin espacios)</span></label>
+            <input class="form-input" id="fId" type="text" placeholder="mi-proyecto-2025" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fYear">Año</label>
+            <input class="form-input" id="fYear" type="text" placeholder="2025" maxlength="4" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="fCategory">Categoría</label>
+          <select class="form-select" id="fCategory">
+            <option value="data-science">📊 Data Science</option>
+            <option value="web">🌐 Web</option>
+            <option value="software">⚙️ Software</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="fCover">Imagen de portada <span>(ruta, ej: assets/mi-imagen.jpg — dejar vacío para gradiente)</span></label>
+          <input class="form-input" id="fCover" type="text" placeholder="assets/cover.jpg" />
+        </div>
+      </div>
+
+      <!-- ── 2. Título y subtítulo ── -->
+      <div class="admin-panel">
+        <h2 class="admin-panel__title">✏️ Título y subtítulo</h2>
+
+        <div class="form-group">
+          <label class="form-label" for="fTitleEs">Título (Español)</label>
+          <input class="form-input" id="fTitleEs" type="text" placeholder="Mi Proyecto en Español" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="fTitleEn">Título (English)</label>
+          <input class="form-input" id="fTitleEn" type="text" placeholder="My Project in English" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="fSubEs">Subtítulo (Español) <span>— tecnologías / materia / institución</span></label>
+          <input class="form-input" id="fSubEs" type="text" placeholder="Python · Pandas · UTEC" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="fSubEn">Subtítulo (English)</label>
+          <input class="form-input" id="fSubEn" type="text" placeholder="Python · Pandas · UTEC" />
+        </div>
+      </div>
+
+      <!-- ── 3. Descripción principal ── -->
+      <div class="admin-panel">
+        <h2 class="admin-panel__title">📝 Descripción principal</h2>
+        <p class="admin-panel__hint">
+          Párrafo que aparece arriba del contenido en la página de detalle y como resumen en las tarjetas del portfolio.
+        </p>
+
+        <div class="form-group">
+          <label class="form-label" for="fDescEs">Descripción (Español)</label>
+          <textarea class="form-textarea" id="fDescEs" rows="4" placeholder="Descripción breve del proyecto en español..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="fDescEn">Descripción (English)</label>
+          <textarea class="form-textarea" id="fDescEn" rows="4" placeholder="Short project description in English..."></textarea>
+        </div>
+      </div>
+
+      <!-- ── 4. Secciones libres ── -->
+      <div class="admin-panel">
+        <h2 class="admin-panel__title">📂 Secciones de contenido</h2>
+        <p class="admin-panel__hint">
+          Cada sección tiene un título y bloques de texto o imagen. Podés agregar tantas como quieras.
+        </p>
+
+        <div class="sections-list" id="sectionsList"></div>
+
+        <button class="btn btn--sm btn--outline btn--add" id="btnAddSection">
+          + Agregar sección
+        </button>
+      </div>
+
+      <!-- ── 5. Tags / Stack ── -->
+      <div class="admin-panel">
+        <h2 class="admin-panel__title">🏷️ Tags / Stack</h2>
+        <p class="admin-panel__hint">
+          Escribí un tag y presioná <kbd>Enter</kbd> o <kbd>,</kbd> para agregarlo.
+        </p>
+        <div class="tags-input-wrap" id="tagsWrap">
+          <input class="tags-real-input" id="tagsInput" type="text" placeholder="Python, Pandas…" />
+        </div>
+        <input type="hidden" id="tagsHidden" />
+      </div>
+
+      <!-- ── 6. Links ── -->
+      <div class="admin-panel">
+        <h2 class="admin-panel__title">🔗 Links</h2>
+
+        <div class="links-list" id="linksList"></div>
+
+        <button class="btn btn--sm btn--outline btn--add" id="btnAddLink">
+          + Agregar link
+        </button>
+      </div>
+
+    </div><!-- /formCol -->
+
+    <!-- ════════════════ COLUMNA DERECHA — OUTPUT ════════════════ -->
+    <div class="admin-output" id="outputCol">
+
+      <div class="admin-panel">
+        <h2 class="admin-panel__title">⚡ Código generado</h2>
+        <p class="admin-panel__hint--sm">
+          Copiá este bloque y pegalo al final del array en <code>projects-data.js</code> (antes del cierre <code>]</code>).
+        </p>
+
+        <pre class="output-code" id="outputCode">// Completá el formulario y presioná "Generar código"</pre>
+
+        <div class="output-actions">
+          <button class="btn btn--sm btn--primary" id="btnCopy">📋 Copiar</button>
+          <a id="btnPreview" class="btn btn--sm btn--outline admin-preview-link" href="#" target="_blank">👁 Vista previa</a>
+        </div>
+      </div>
+
+      <!-- Mini guía -->
+      <div class="admin-panel">
+        <h2 class="admin-panel__title">📖 Guía rápida</h2>
+        <ol class="admin-guide-list">
+          <li>Completá todos los campos del formulario</li>
+          <li>Agregá secciones con texto e imágenes (las imágenes van en <code>assets/</code>)</li>
+          <li>Presioná <strong>Generar código</strong></li>
+          <li>Copiá el código y pegalo en <code>projects-data.js</code></li>
+          <li>En <code>index.html</code>, agregá una tarjeta apuntando al ID del proyecto</li>
+        </ol>
+      </div>
+
+    </div><!-- /outputCol -->
+
+  </div><!-- /admin-layout -->
+
+  <!-- Toast -->
+  <div class="admin-toast" id="adminToast">✅ Copiado al portapapeles</div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

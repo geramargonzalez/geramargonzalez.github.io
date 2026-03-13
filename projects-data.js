@@ -15,6 +15,8 @@
  *   - results     : { es, en }  — sección "Resultados"
  *   - tags        : array de strings
  *   - links       : array de { label, url, style ('outline'|'ghost'|'primary'), download? }
+ *   - sections    : array de secciones libres (generado desde admin.html)
+ *                   cada sección: { title: string, blocks: [ {type:'text'|'image', content, caption?} ] }
  */
 
 var PROJECTS_DATA = [
