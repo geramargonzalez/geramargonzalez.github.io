@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Admin · Gerardo González</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Auth guard: oculta el contenido hasta verificar sesión -->
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-client.js"></script>
+  <script src="auth-guard.js"></script>
+</head>
+<body class="admin-page dashboard-page">
+
+  <!-- ── Navbar ── -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="index.html" class="navbar__brand">
+        <img src="assets/logo.png" alt="GG Logo" class="navbar__logo" />
+      </a>
+      <span class="admin-navbar-label">⚙️ Dashboard Admin</span>
+      <div class="dashboard-nav-actions">
+        <span class="dashboard-user-info" id="dashUserInfo"></span>
+        <a href="admin.html" class="btn btn--sm btn--outline" title="Generador de código JS">🛠 Generador</a>
+        <button class="btn btn--sm btn--ghost" id="btnLogout">Cerrar sesión</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Tabs ── -->
+  <div class="dashboard-tabs-bar">
+    <div class="container">
+      <div class="dashboard-tabs" id="dashTabs">
+        <button class="dashboard-tab dashboard-tab--active" data-tab="projects">
+          📁 Proyectos
+        </button>
+        <button class="dashboard-tab" data-tab="articles">
+          📰 Artículos
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Contenido principal ── -->
+  <main class="container dashboard-main" id="dashMain">
+
+    <!-- ══════════ TAB: PROYECTOS ══════════ -->
+    <div class="dashboard-section" id="tabProjects">
+
+      <div class="dashboard-section__header">
+        <div>
+          <h1 class="dashboard-section__title">Proyectos</h1>
+          <p class="dashboard-section__sub">Gestión de proyectos del portfolio.</p>
+        </div>
+        <button class="btn btn--primary" id="btnNewProject">+ Nuevo proyecto</button>
+      </div>
+
+      <!-- Formulario crear/editar proyecto -->
+      <div class="dashboard-form-panel admin-form-hidden" id="projectFormPanel">
+        <div class="admin-panel">
+          <div class="dashboard-form-panel__header">
+            <h2 class="admin-panel__title" id="projectFormTitle">Nuevo proyecto</h2>
+            <button type="button" class="btn btn--sm btn--ghost" id="btnCancelProject">✕ Cancelar</button>
+          </div>
+
+          <form id="projectForm" novalidate>
+            <!-- Fila 1: Slug + Categoría + Año -->
+            <div class="form-row form-row--3">
+              <div class="form-group">
+                <label class="form-label" for="pSlug">
+                  Slug <span>(se genera automático desde el título)</span>
+                </label>
+                <input class="form-input" id="pSlug" type="text" placeholder="mi-proyecto-2025" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="pCategory">Categoría</label>
+                <select class="form-select" id="pCategory">
+                  <option value="data-science">📊 Data Science</option>
+                  <option value="web">🌐 Web</option>
+                  <option value="software">⚙️ Software</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="pYear">Año</label>
+                <input class="form-input" id="pYear" type="text" placeholder="2025" maxlength="4" />
+              </div>
+            </div>
+
+            <!-- Títulos bilingües -->
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="pTitleEs">Título (ES)</label>
+                <input class="form-input" id="pTitleEs" type="text" placeholder="Título en español" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="pTitleEn">Título (EN)</label>
+                <input class="form-input" id="pTitleEn" type="text" placeholder="Title in English" />
+              </div>
+            </div>
+
+            <!-- Subtítulos bilingües -->
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="pSubtitleEs">Subtítulo (ES)</label>
+                <input class="form-input" id="pSubtitleEs" type="text" placeholder="Subtítulo en español" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="pSubtitleEn">Subtítulo (EN)</label>
+                <input class="form-input" id="pSubtitleEn" type="text" placeholder="Subtitle in English" />
+              </div>
+            </div>
+
+            <!-- Descripción bilingüe -->
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="pDescEs">Descripción (ES)</label>
+                <textarea class="form-textarea" id="pDescEs" rows="4" placeholder="Descripción en español (acepta HTML)"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="pDescEn">Descripción (EN)</label>
+                <textarea class="form-textarea" id="pDescEn" rows="4" placeholder="Description in English (HTML accepted)"></textarea>
+              </div>
+            </div>
+
+            <!-- Imagen -->
+            <div class="form-group">
+              <label class="form-label">Imagen de portada</label>
+              <div class="dashboard-image-field">
+                <input class="form-input" id="pImageUrl" type="text" placeholder="URL de imagen existente o dejá vacío para subir" />
+                <span class="dashboard-image-sep">o</span>
+                <label class="btn btn--sm btn--outline dashboard-upload-btn">
+                  📁 Subir imagen
+                  <input type="file" id="pImageFile" accept="image/*" class="dashboard-file-input" />
+                </label>
+              </div>
+              <div id="pImagePreview" class="dashboard-image-preview"></div>
+            </div>
+
+            <!-- Technologies / Tags -->
+            <div class="form-group">
+              <label class="form-label" for="pTechInput">
+                Tecnologías / Tags <span>(Enter o coma para agregar)</span>
+              </label>
+              <div class="tags-input-wrap" id="pTechWrap">
+                <input class="tags-input-field" id="pTechInput" type="text" placeholder="Python, SQL, …" />
+              </div>
+            </div>
+
+            <!-- Content / Sections (JSON) -->
+            <div class="form-group">
+              <label class="form-label" for="pContent">
+                Contenido / Secciones <span>(JSON — generalo con el <a href="admin.html" target="_blank">Generador</a> y pegalo aquí)</span>
+              </label>
+              <textarea class="form-textarea form-textarea--mono" id="pContent" rows="6" placeholder="[]"></textarea>
+              <p class="admin-panel__hint admin-panel__hint--sm">
+                Formato: <code>[{"title":"Contexto","blocks":[{"type":"text","content":"..."}]}]</code>
+              </p>
+            </div>
+
+            <!-- Links -->
+            <div class="form-group">
+              <label class="form-label" for="pLinks">
+                Links <span>(JSON)</span>
+              </label>
+              <textarea class="form-textarea form-textarea--mono" id="pLinks" rows="3" placeholder='[{"label":"GitHub","url":"https://github.com/...","style":"outline"}]'></textarea>
+            </div>
+
+            <!-- Publicado -->
+            <div class="form-group">
+              <label class="dashboard-toggle">
+                <input type="checkbox" id="pPublished" />
+                <span class="dashboard-toggle__track"></span>
+                <span class="dashboard-toggle__label">Publicado (visible en el portfolio)</span>
+              </label>
+            </div>
+
+            <div id="projectFormError" class="login-error" hidden></div>
+
+            <div class="dashboard-form-actions">
+              <button type="submit" class="btn btn--primary" id="btnSaveProject">Guardar proyecto</button>
+              <button type="button" class="btn btn--ghost" id="btnCancelProject2">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div><!-- /projectFormPanel -->
+
+      <!-- Lista de proyectos -->
+      <div id="projectsList" class="dashboard-items-list">
+        <div class="dashboard-loading">Cargando proyectos…</div>
+      </div>
+
+    </div><!-- /tabProjects -->
+
+
+    <!-- ══════════ TAB: ARTÍCULOS ══════════ -->
+    <div class="dashboard-section admin-form-hidden" id="tabArticles">
+
+      <div class="dashboard-section__header">
+        <div>
+          <h1 class="dashboard-section__title">Artículos</h1>
+          <p class="dashboard-section__sub">Gestión de artículos de interés.</p>
+        </div>
+        <button class="btn btn--primary" id="btnNewArticle">+ Nuevo artículo</button>
+      </div>
+
+      <!-- Formulario crear/editar artículo -->
+      <div class="dashboard-form-panel admin-form-hidden" id="articleFormPanel">
+        <div class="admin-panel">
+          <div class="dashboard-form-panel__header">
+            <h2 class="admin-panel__title" id="articleFormTitle">Nuevo artículo</h2>
+            <button type="button" class="btn btn--sm btn--ghost" id="btnCancelArticle">✕ Cancelar</button>
+          </div>
+
+          <form id="articleForm" novalidate>
+            <!-- Fila 1: Slug + Fecha + Categoría -->
+            <div class="form-row form-row--3">
+              <div class="form-group">
+                <label class="form-label" for="aSlug">
+                  Slug <span>(auto desde el título)</span>
+                </label>
+                <input class="form-input" id="aSlug" type="text" placeholder="mi-articulo-2025" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="aDate">Fecha</label>
+                <input class="form-input" id="aDate" type="date" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="aCategory">Categoría</label>
+                <select class="form-select" id="aCategory">
+                  <option value="data-science">📊 Data Science</option>
+                  <option value="netsuite">⚙️ NetSuite</option>
+                  <option value="ia">🤖 IA</option>
+                  <option value="general">💡 General</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Títulos bilingües -->
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="aTitleEs">Título (ES) <span class="form-required">*</span></label>
+                <input class="form-input" id="aTitleEs" type="text" placeholder="Título en español" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="aTitleEn">Título (EN)</label>
+                <input class="form-input" id="aTitleEn" type="text" placeholder="Title in English" />
+              </div>
+            </div>
+
+            <!-- Resumen bilingüe (excerpt) -->
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="aSummaryEs">Resumen (ES)</label>
+                <textarea class="form-textarea" id="aSummaryEs" rows="3" placeholder="Resumen breve para la tarjeta"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="aSummaryEn">Resumen (EN)</label>
+                <textarea class="form-textarea" id="aSummaryEn" rows="3" placeholder="Brief summary for the card"></textarea>
+              </div>
+            </div>
+
+            <!-- Imagen de portada -->
+            <div class="form-group">
+              <label class="form-label">Imagen de portada</label>
+              <div class="dashboard-image-field">
+                <input class="form-input" id="aImageUrl" type="text" placeholder="URL de imagen existente o dejá vacío para subir" />
+                <span class="dashboard-image-sep">o</span>
+                <label class="btn btn--sm btn--outline dashboard-upload-btn">
+                  📁 Subir imagen
+                  <input type="file" id="aImageFile" accept="image/*" class="dashboard-file-input" />
+                </label>
+              </div>
+              <div id="aImagePreview" class="dashboard-image-preview"></div>
+            </div>
+
+            <!-- Reading time + External link -->
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="aReadingTime">Tiempo de lectura</label>
+                <input class="form-input" id="aReadingTime" type="text" placeholder="5 min" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="aExternalLink">Link externo <span>(opcional — redirige en lugar del detalle)</span></label>
+                <input class="form-input" id="aExternalLink" type="url" placeholder="https://…" />
+              </div>
+            </div>
+
+            <!-- Tags -->
+            <div class="form-group">
+              <label class="form-label" for="aTagInput">
+                Tags <span>(Enter o coma para agregar)</span>
+              </label>
+              <div class="tags-input-wrap" id="aTagWrap">
+                <input class="tags-input-field" id="aTagInput" type="text" placeholder="Python, EDA, …" />
+              </div>
+            </div>
+
+            <!-- Content / Sections -->
+            <div class="form-group">
+              <label class="form-label" for="aContent">
+                Contenido / Secciones <span>(JSON — generalo con el <a href="admin.html" target="_blank">Generador</a>)</span>
+              </label>
+              <textarea class="form-textarea form-textarea--mono" id="aContent" rows="6" placeholder="[]"></textarea>
+            </div>
+
+            <!-- Publicado -->
+            <div class="form-group">
+              <label class="dashboard-toggle">
+                <input type="checkbox" id="aPublished" />
+                <span class="dashboard-toggle__track"></span>
+                <span class="dashboard-toggle__label">Publicado (visible en el portfolio)</span>
+              </label>
+            </div>
+
+            <div id="articleFormError" class="login-error" hidden></div>
+
+            <div class="dashboard-form-actions">
+              <button type="submit" class="btn btn--primary" id="btnSaveArticle">Guardar artículo</button>
+              <button type="button" class="btn btn--ghost" id="btnCancelArticle2">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div><!-- /articleFormPanel -->
+
+      <!-- Lista de artículos -->
+      <div id="articlesList" class="dashboard-items-list">
+        <div class="dashboard-loading">Cargando artículos…</div>
+      </div>
+
+    </div><!-- /tabArticles -->
+
+  </main>
+
+  <!-- ── Toast de notificaciones ── -->
+  <div class="admin-toast" id="dashToast"></div>
+
+  <!-- Scripts -->
+  <script src="admin-dashboard.js"></script>
+
+</body>
+</html>

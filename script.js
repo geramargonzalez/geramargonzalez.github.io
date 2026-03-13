@@ -229,6 +229,8 @@
   var filterWrap  = document.getElementById('articlesFilters');
   if (!grid || typeof ARTICLES_DATA === 'undefined') return;
 
+  var liveData = null; // replaced by Supabase data when available
+
   var MONTHS_ES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
   var MONTHS_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
@@ -270,7 +272,7 @@
     grid.innerHTML = '';
 
     // Sort by date descending
-    var sorted = ARTICLES_DATA.slice().sort(function (a, b) {
+    var sorted = (liveData || ARTICLES_DATA).slice().sort(function (a, b) {
       return (b.date || '').localeCompare(a.date || '');
     });
 
@@ -327,6 +329,13 @@
   }
 
   renderCards();
+
+  // Enrich with live data from Supabase if configured
+  if (window.SupabaseAPI) {
+    window.SupabaseAPI.getArticles(false).then(function (data) {
+      if (data && data.length) { liveData = data; renderCards(); }
+    }).catch(function () { /* silent: keep showing static data */ });
+  }
 
   // Filter buttons
   if (filterWrap) {

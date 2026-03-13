@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin · Nuevo Proyecto</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- Auth guard — must run before page renders -->
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-client.js"></script>
+  <script src="auth-guard.js"></script>
 </head>
 <body class="admin-page">
 
@@ -15,6 +20,7 @@
         <img src="assets/logo.png" alt="GG Logo" class="navbar__logo" />
       </a>
       <span class="admin-navbar-label">⚙️ Panel Admin</span>
+      <a href="admin-dashboard.html" class="btn btn--sm btn--outline">⬡ Dashboard</a>
       <a href="index.html#proyectos" class="btn btn--sm btn--outline">← Volver al portfolio</a>
     </div>
   </header>

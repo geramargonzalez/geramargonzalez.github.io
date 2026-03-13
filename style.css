@@ -2471,3 +2471,562 @@ h1, h2, h3, h4 {
     padding: var(--space-md) var(--space-lg);
   }
 }
+
+
+/* =============================================================
+   14. LOGIN — Página de acceso admin
+   ============================================================= */
+
+.login-page {
+  min-height: 100vh;
+  background: var(--clr-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+}
+
+.login-wrap {
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl) var(--space-xl);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.login-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: var(--space-lg);
+}
+
+.login-brand__logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.login-brand__label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.login-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0 0 0.4rem 0;
+}
+
+.login-subtitle {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  margin: 0 0 var(--space-lg) 0;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.login-form .form-label {
+  color: #cbd5e1;
+}
+
+.login-form .form-input {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f1f5f9;
+}
+
+.login-form .form-input::placeholder {
+  color: #64748b;
+}
+
+.login-form .form-input:focus {
+  border-color: var(--clr-accent);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.login-pw-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.login-pw-wrap .form-input {
+  padding-right: 2.8rem;
+  flex: 1;
+}
+
+.login-pw-toggle {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0.1rem;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+
+.login-pw-toggle:hover {
+  opacity: 1;
+}
+
+.login-error {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.login-submit {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+.login-footer {
+  margin-top: var(--space-md);
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.login-footer a {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.login-footer a:hover {
+  color: #f1f5f9;
+}
+
+
+/* =============================================================
+   15. DASHBOARD ADMIN — admin-dashboard.html
+   ============================================================= */
+
+/* ── Barra de tabs ── */
+.dashboard-tabs-bar {
+  background: rgba(9, 14, 26, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: sticky;
+  top: var(--navbar-h);
+  z-index: 90;
+}
+
+.dashboard-tabs {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.5rem 0;
+}
+
+.dashboard-tab {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.dashboard-tab:hover {
+  color: #f1f5f9;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.dashboard-tab--active {
+  color: #fff;
+  border-bottom: 2px solid var(--clr-accent);
+  border-radius: 0;
+}
+
+/* ── Acciones en navbar ── */
+.dashboard-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+.dashboard-user-info {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.45);
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Contenido principal ── */
+.dashboard-main {
+  padding-block: var(--space-xl);
+}
+
+.dashboard-page .dashboard-main {
+  padding-top: var(--space-lg);
+}
+
+/* ── Sección (tab contenido) ── */
+.dashboard-section__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.dashboard-section__title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--clr-text);
+  margin: 0 0 0.25rem 0;
+}
+
+.dashboard-section__sub {
+  font-size: 0.875rem;
+  color: var(--clr-text-light);
+  margin: 0;
+}
+
+/* ── Form panel ── */
+.dashboard-form-panel {
+  margin-bottom: var(--space-xl);
+}
+
+.dashboard-form-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.form-row--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.form-required {
+  color: #ef4444;
+}
+
+/* ── Image field ── */
+.dashboard-image-field {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.dashboard-image-field .form-input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.dashboard-image-sep {
+  font-size: 0.8rem;
+  color: var(--clr-text-light);
+}
+
+.dashboard-upload-btn {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-file-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.dashboard-image-preview {
+  margin-top: 0.5rem;
+}
+
+.dashboard-image-preview__img {
+  max-height: 120px;
+  max-width: 240px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--clr-border);
+  object-fit: cover;
+}
+
+/* ── Tags input dentro del dashboard ── */
+.tags-input-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  background: var(--clr-surface);
+  cursor: text;
+  min-height: 42px;
+  transition: border-color 0.15s;
+}
+
+.tags-input-wrap:focus-within {
+  border-color: var(--clr-accent);
+}
+
+.tags-input-field {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.9rem;
+  color: var(--clr-text);
+  min-width: 120px;
+  flex: 1;
+  padding: 0.1rem 0.2rem;
+}
+
+/* ── Mono textarea (JSON) ── */
+.form-textarea--mono {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+/* ── Toggle (checkbox styled) ── */
+.dashboard-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dashboard-toggle input[type="checkbox"] {
+  display: none;
+}
+
+.dashboard-toggle__track {
+  width: 42px;
+  height: 24px;
+  background: var(--clr-border);
+  border-radius: 12px;
+  position: relative;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.dashboard-toggle__track::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,.2);
+}
+
+.dashboard-toggle input:checked + .dashboard-toggle__track {
+  background: var(--clr-accent);
+}
+
+.dashboard-toggle input:checked + .dashboard-toggle__track::after {
+  transform: translateX(18px);
+}
+
+.dashboard-toggle__label {
+  font-size: 0.9rem;
+  color: var(--clr-text);
+}
+
+/* ── Botón peligroso ── */
+.btn--danger {
+  background: rgba(239, 68, 68, 0.08);
+  color: #dc2626;
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+.btn--danger:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #b91c1c;
+}
+
+/* ── Form actions ── */
+.dashboard-form-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--clr-border);
+  margin-top: var(--space-md);
+}
+
+/* ── Items list ── */
+.dashboard-items-list {
+  min-height: 120px;
+}
+
+.dashboard-loading,
+.dashboard-empty,
+.dashboard-error {
+  padding: var(--space-xl);
+  text-align: center;
+  color: var(--clr-text-light);
+  font-size: 0.9rem;
+}
+
+.dashboard-error {
+  color: #dc2626;
+  background: rgba(239, 68, 68, 0.06);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+}
+
+/* ── Tabla de items ── */
+.dashboard-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--clr-border);
+}
+
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.dashboard-table thead th {
+  background: var(--clr-bg-alt);
+  padding: 0.65rem 0.9rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+  border-bottom: 1px solid var(--clr-border);
+  white-space: nowrap;
+}
+
+.dashboard-row:hover {
+  background: var(--clr-bg-alt);
+}
+
+.dash-td {
+  padding: 0.65rem 0.9rem;
+  border-bottom: 1px solid var(--clr-border);
+  vertical-align: middle;
+  color: var(--clr-text);
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dash-td--slug code {
+  font-size: 0.8rem;
+  color: var(--clr-accent);
+}
+
+.dash-td--actions {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: none;
+  white-space: normal;
+}
+
+/* ── Badges de estado ── */
+.dash-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.dash-badge--published {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.dash-badge--draft {
+  background: rgba(107, 114, 128, 0.1);
+  color: #6b7280;
+  border: 1px solid rgba(107, 114, 128, 0.2);
+}
+
+/* ── Toast error variant ── */
+.admin-toast--error {
+  background: #dc2626 !important;
+}
+
+/* ── Responsive dashboard ── */
+@media (max-width: 900px) {
+  .form-row--3 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dashboard-nav-actions {
+    gap: 0.4rem;
+  }
+
+  .dashboard-user-info {
+    display: none;
+  }
+
+  .dashboard-section__header {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 680px) {
+  .form-row--3 {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dashboard-form-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .dash-td--actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .login-card {
+    padding: var(--space-lg);
+  }
+}

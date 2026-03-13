@@ -35,6 +35,20 @@
 
   var mainEl = document.getElementById('project-main');
 
+  // Fetch from Supabase if project not in static data (e.g. new entries created via admin)
+  if (window.SupabaseAPI && id && !project) {
+    mainEl.innerHTML = '<div style="padding-top:calc(var(--navbar-h) + 4rem);padding-bottom:4rem;text-align:center;color:var(--clr-text-muted)">Cargando…</div>';
+    window.SupabaseAPI.getProjectBySlug(id).then(function (fetched) {
+      if (fetched) project = fetched;
+      doRender();
+    }).catch(function () { doRender(); });
+    return;
+  }
+  doRender();
+  return;
+
+  /* ── Render de proyecto ──────────────────────────────────── */
+  function doRender() {
   if (!project) {
     mainEl.innerHTML =
       '<div style="padding-top:calc(var(--navbar-h) + 4rem);padding-bottom:4rem;text-align:center">' +
@@ -293,5 +307,7 @@
       .replace(/"/g,  '&quot;')
       .replace(/'/g,  '&#39;');
   }
+
+  } // end doRender
 
 })();

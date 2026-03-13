@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acceso Admin · Gerardo González</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="login-page">
+
+  <div class="login-wrap">
+    <div class="login-card">
+
+      <!-- Brand -->
+      <div class="login-brand">
+        <a href="index.html">
+          <img src="assets/logo.png" alt="GG" class="login-brand__logo" />
+        </a>
+        <span class="login-brand__label">Panel Admin</span>
+      </div>
+
+      <h1 class="login-title">Iniciar sesión</h1>
+      <p class="login-subtitle">Acceso restringido a administradores del portfolio.</p>
+
+      <form id="loginForm" class="login-form" novalidate>
+
+        <div class="form-group">
+          <label class="form-label" for="loginEmail">Email</label>
+          <input
+            class="form-input"
+            id="loginEmail"
+            type="email"
+            autocomplete="email"
+            required
+            placeholder="admin@ejemplo.com"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">Contraseña</label>
+          <div class="login-pw-wrap">
+            <input
+              class="form-input"
+              id="loginPassword"
+              type="password"
+              autocomplete="current-password"
+              required
+              placeholder="••••••••"
+            />
+            <button type="button" id="togglePw" class="login-pw-toggle" aria-label="Mostrar/ocultar contraseña">
+              <span id="togglePwIcon">👁</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="loginError" class="login-error" hidden></div>
+
+        <button type="submit" class="btn btn--primary login-submit" id="loginBtn">
+          Entrar
+        </button>
+
+      </form>
+
+      <div class="login-footer">
+        <a href="index.html">← Volver al portfolio</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Supabase + Auth -->
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-client.js"></script>
+  <script src="login.js"></script>
+
+</body>
+</html>

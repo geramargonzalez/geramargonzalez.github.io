@@ -118,6 +118,16 @@
   }
 
   if (!article) {
+    if (window.SupabaseAPI && id) {
+      main.innerHTML = '<div class="container" style="padding-top:calc(var(--navbar-h) + 3rem);padding-bottom:4rem;text-align:center;color:var(--clr-text-muted)">Cargando…</div>';
+      window.SupabaseAPI.getArticleBySlug(id).then(function (fetched) {
+        if (fetched) { article = fetched; renderPage(); }
+        else { main.innerHTML = '<div class="container" style="padding-top:calc(var(--navbar-h) + 3rem);padding-bottom:4rem"><p>Artículo no encontrado.</p><a href="index.html#articulos" class="btn btn--outline" style="margin-top:1rem">← Volver</a></div>'; }
+      }).catch(function () {
+        main.innerHTML = '<div class="container" style="padding-top:calc(var(--navbar-h) + 3rem);padding-bottom:4rem"><p>Artículo no encontrado.</p><a href="index.html#articulos" class="btn btn--outline" style="margin-top:1rem">← Volver</a></div>';
+      });
+      return;
+    }
     main.innerHTML = '<div class="container" style="padding-top:calc(var(--navbar-h) + 3rem);padding-bottom:4rem"><p>Artículo no encontrado.</p><a href="index.html#articulos" class="btn btn--outline" style="margin-top:1rem">← Volver</a></div>';
     return;
   }
