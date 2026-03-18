@@ -63,21 +63,26 @@
     var session = await getSession();
     if (!session) return null;
 
+    var userEmail = session.user.email;
+
+    // 1. Try reading from profiles table (requires RLS policy to allow it)
     var result = await client
       .from('profiles')
       .select('id, email, role, created_at')
       .eq('id', session.user.id)
       .single();
 
-    // If DB query succeeded, use that data
     if (result.data) return result.data;
 
-    // Fallback: RLS may be blocking the read — check user_metadata instead.
-    // Role can be set in the Supabase Dashboard → Authentication → Users →
-    // click user → User Metadata → { "role": "admin" }
+    // 2. Fallback: check user_metadata (set in Supabase Dashboard → Users → User Metadata)
     var meta = (session.user.user_metadata) || {};
     if (meta.role) {
-      return { id: session.user.id, email: session.user.email, role: meta.role };
+      return { id: session.user.id, email: userEmail, role: meta.role };
+    }
+
+    // 3. Fallback: check ADMIN_EMAIL from config.js — for single-admin personal portfolios
+    if (window.ADMIN_EMAIL && userEmail === window.ADMIN_EMAIL) {
+      return { id: session.user.id, email: userEmail, role: 'admin' };
     }
 
     return null;
