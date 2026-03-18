@@ -8,21 +8,115 @@ Portfolio personal de **Gerardo González** — NetSuite Administrator · Develo
 
 ## 📋 Descripción
 
-Este repositorio contiene el código fuente de mi sitio web personal y portfolio profesional. Está construido íntegramente con **HTML, CSS y JavaScript vanilla** (sin frameworks ni dependencias externas), lo que lo hace liviano, rápido y fácil de mantener.
+Este repositorio contiene el código fuente de mi sitio web personal y portfolio profesional. Está construido íntegramente con **HTML, CSS y JavaScript vanilla** (sin frameworks ni dependencias externas) y usa **Supabase** como backend para la gestión dinámica de contenido del CMS administrativo.
 
 El sitio presenta mi perfil profesional como especialista en NetSuite, desarrollo de integraciones y análisis de datos, con un foco especial en la formación académica en Ciencia de Datos e IA (UTEC + MIT).
+
+---
 
 ## 🗂️ Estructura del proyecto
 
 ```
 geramaargonzalez.github.io/
-├── index.html      # Página principal con todas las secciones del portfolio
-├── style.css       # Estilos completos (variables, layout, componentes, responsive)
-├── script.js       # Funcionalidades JavaScript del sitio
-└── assets/
-    ├── profile.jpg # Foto de perfil
-    └── CV.pdf      # Currículum descargable
+│
+├── 📄 Páginas públicas
+│   ├── index.html              # Página principal del portfolio
+│   ├── project.html            # Vista de detalle de proyecto
+│   └── article.html            # Vista de detalle de artículo
+│
+├── 🎨 Estilos y scripts del sitio público
+│   ├── style.css               # Estilos globales (variables, layout, responsive)
+│   ├── script.js               # Funcionalidades del sitio (navbar, scroll, etc.)
+│   ├── project.js              # Lógica de la página de detalle de proyecto
+│   └── article.js              # Lógica de la página de detalle de artículo
+│
+├── 📦 Datos estáticos
+│   ├── projects-data.js        # Array de proyectos (fallback / datos locales)
+│   └── articles-data.js        # Array de artículos (fallback / datos locales)
+│
+├── 🔐 Panel de administración (acceso restringido)
+│   ├── login.html              # Página de inicio de sesión
+│   ├── login.js                # Lógica de autenticación vía Supabase Auth
+│   ├── admin-dashboard.html    # Dashboard: gestión de proyectos y artículos
+│   ├── admin-dashboard.js      # Lógica CRUD del dashboard
+│   ├── admin.html              # Generador de código JS para proyectos/artículos
+│   ├── admin.js                # Lógica del generador
+│   └── auth-guard.js           # Guard: protege rutas admin verificando sesión activa
+│
+├── 🔌 Integración con Supabase
+│   ├── supabase-client.js      # Inicialización del cliente Supabase
+│   ├── config.js               # Credenciales (SUPABASE_URL + ANON_KEY)
+│   ├── config.example.js       # Plantilla de credenciales (sin datos sensibles)
+│   └── supabase-schema.sql     # Esquema SQL de la base de datos
+│
+├── 📚 Documentación
+│   ├── README.md               # Este archivo
+│   └── SUPABASE_SETUP.md       # Guía de configuración de Supabase
+│
+└── 📁 assets/
+    └── preprocesamiento_siniestros2022.csv   # Dataset de análisis
 ```
+
+---
+
+## 🏗️ Arquitectura del proyecto
+
+```mermaid
+graph TD
+    subgraph PUBLIC["🌐 Sitio Público"]
+        A["index.html<br/><small>Portfolio principal</small>"]
+        B["project.html<br/><small>Detalle de proyecto</small>"]
+        C["article.html<br/><small>Detalle de artículo</small>"]
+    end
+
+    subgraph SCRIPTS["🎨 Scripts del sitio"]
+        D["script.js"]
+        E["project.js"]
+        F["article.js"]
+        G["style.css"]
+    end
+
+    subgraph DATA["📦 Datos"]
+        H["projects-data.js<br/><small>Datos estáticos</small>"]
+        I["articles-data.js<br/><small>Datos estáticos</small>"]
+    end
+
+    subgraph ADMIN["🔐 Panel Admin (protegido)"]
+        J["login.html + login.js<br/><small>Autenticación</small>"]
+        K["admin-dashboard.html + .js<br/><small>CRUD proyectos y artículos</small>"]
+        L["admin.html + admin.js<br/><small>Generador de código JS</small>"]
+        M["auth-guard.js<br/><small>Protección de rutas</small>"]
+    end
+
+    subgraph BACKEND["🔌 Backend — Supabase"]
+        N["supabase-client.js<br/><small>Inicialización del cliente</small>"]
+        O["config.js<br/><small>Credenciales</small>"]
+        P[("Supabase DB<br/><small>PostgreSQL</small>")]
+        Q["supabase-schema.sql<br/><small>Definición del esquema</small>"]
+    end
+
+    A --> D & G
+    B --> E & G
+    C --> F & G
+    A --> H & I
+    B --> H
+    C --> I
+
+    J --> N
+    K --> N
+    L --> N
+    M --> N
+    N --> O
+    N --> P
+    Q -.->|define| P
+
+    J -->|sesión OK| K
+    J -->|sesión OK| L
+    M -->|guard| K
+    M -->|guard| L
+```
+
+---
 
 ## 📄 Secciones del sitio
 
@@ -92,9 +186,39 @@ npx serve .
 
 Luego visita `http://localhost:8000`.
 
+> **Nota:** Para usar las funciones del panel de administración se requiere configurar Supabase. Ver [SUPABASE_SETUP.md](SUPABASE_SETUP.md).
+
+---
+
+## 🔐 Panel de administración
+
+El sitio incluye un CMS liviano protegido por autenticación Supabase:
+
+| Ruta | Descripción |
+|------|-------------|
+| `/login.html` | Inicio de sesión con Supabase Auth |
+| `/admin-dashboard.html` | Dashboard CRUD para proyectos y artículos |
+| `/admin.html` | Generador de código JS para datos estáticos |
+
+`auth-guard.js` verifica la sesión activa en todas las páginas admin y redirige a `/login.html` si no hay autenticación válida.
+
+---
+
+## 🔌 Configuración de Supabase
+
+1. Copia `config.example.js` a `config.js`.
+2. Rellena `SUPABASE_URL` y `SUPABASE_ANON_KEY` con los valores de tu proyecto.
+3. Ejecuta el esquema de base de datos desde `supabase-schema.sql`.
+
+Ver guía completa en [SUPABASE_SETUP.md](SUPABASE_SETUP.md).
+
+---
+
 ## 🚢 Despliegue
 
 El sitio se despliega automáticamente en **GitHub Pages** con cada push a la rama `main`. No requiere configuración adicional de CI/CD.
+
+---
 
 ## 📝 Licencia
 
