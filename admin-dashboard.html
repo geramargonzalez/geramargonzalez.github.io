@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Admin · Gerardo González</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
   <!-- Auth guard: oculta el contenido hasta verificar sesión -->
-  <script src="config.js"></script>
+  <script src="supabase/config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="supabase-client.js"></script>
-  <script src="auth-guard.js"></script>
+  <script src="supabase/supabase-client.js"></script>
+  <script src="js/auth-guard.js"></script>
 </head>
 <body class="admin-page dashboard-page">
 
@@ -336,7 +336,7 @@
   <div class="admin-toast" id="dashToast"></div>
 
   <!-- Scripts -->
-  <script src="admin-dashboard.js"></script>
+  <script src="js/admin-dashboard.js"></script>
 
 </body>
 </html>

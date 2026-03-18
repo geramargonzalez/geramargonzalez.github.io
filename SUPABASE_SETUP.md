@@ -15,10 +15,10 @@ The public site works with static data even without Supabase. You only need Supa
 ## 2. Configure local credentials
 
 ```bash
-cp config.example.js config.js
+cp supabase/config.example.js supabase/config.js
 ```
 
-Open `config.js` and fill in your project URL and anon key:
+Open `supabase/config.js` and fill in your project URL and anon key:
 
 ```js
 window.SUPABASE_URL      = 'https://YOUR_PROJECT_REF.supabase.co';
@@ -27,7 +27,7 @@ window.SUPABASE_ANON_KEY = 'your-anon-public-key-here';
 
 You can find both values in **Project Settings → API**.
 
-> `config.js` is listed in `.gitignore` — never commit it with real values.
+> `supabase/config.js` is listed in `.gitignore` — never commit it with real values.
 
 ---
 
@@ -63,13 +63,13 @@ The RLS policies already in `supabase-schema.sql` handle admin-only write access
 
 ## 6. Deploy to GitHub Pages
 
-Push your code to GitHub. Make sure `config.js` is **not** committed (it is gitignored).
+Push your code to GitHub. Make sure `supabase/config.js` is **not** committed (it is gitignored).
 
-**For GitHub Pages:** Because `config.js` is gitignored, you need to either:
-- **Option A (recommended):** Set up a GitHub Actions workflow that injects `config.js` from repository secrets before deploying
-- **Option B (simpler):** Use a private repository and commit `config.js` only on the deploy branch
+**For GitHub Pages:** Because `supabase/config.js` is gitignored, you need to either:
+- **Option A (recommended):** Set up a GitHub Actions workflow that injects `supabase/config.js` from repository secrets before deploying
+- **Option B (simpler):** Use a private repository and commit `supabase/config.js` only on the deploy branch
 
-The simplest "just works" approach: keep your repo private, add `config.js` to git, and push.
+The simplest "just works" approach: keep your repo private, add `supabase/config.js` to git, and push.
 The anon key is safe to expose — all security is enforced via Supabase RLS on the server.
 
 ---
@@ -88,6 +88,6 @@ Navigate to `/login.html` → log in with your admin email/password → you'll b
 - [x] Admin writes require `role = 'admin'` in `profiles` (server-side check via RLS)
 - [x] Storage bucket: public read, admin-only write (via storage RLS policies)
 - [x] Auth guard hides admin pages before session is verified (no flash of unauthorized content)
-- [x] `config.js` is gitignored — never commit real credentials to a public repo
+- [x] `supabase/config.js` is gitignored — never commit real credentials to a public repo
 - [x] Login redirect validates `?next=` to prevent open redirect attacks
 - [x] All user-supplied content escaped with `escHtml()` before DOM insertion
