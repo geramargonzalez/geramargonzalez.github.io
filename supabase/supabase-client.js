@@ -69,8 +69,18 @@
       .eq('id', session.user.id)
       .single();
 
-    if (result.error || !result.data) return null;
-    return result.data;
+    // If DB query succeeded, use that data
+    if (result.data) return result.data;
+
+    // Fallback: RLS may be blocking the read — check user_metadata instead.
+    // Role can be set in the Supabase Dashboard → Authentication → Users →
+    // click user → User Metadata → { "role": "admin" }
+    var meta = (session.user.user_metadata) || {};
+    if (meta.role) {
+      return { id: session.user.id, email: session.user.email, role: meta.role };
+    }
+
+    return null;
   }
 
   /* ══════════════════════════════════════
