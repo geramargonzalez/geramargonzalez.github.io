@@ -18,8 +18,10 @@
   document.documentElement.style.visibility = 'hidden';
 
   function showDenied(message) {
-    document.documentElement.style.visibility = '';
-    document.body.innerHTML =
+    // IMPORTANT: restore visibility only AFTER setting innerHTML.
+    // Scripts run in <head> so document.body may be null at this point —
+    // if so, wait for DOMContentLoaded before rendering.
+    var html =
       '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;' +
            'justify-content:center;gap:1.25rem;font-family:system-ui,sans-serif;' +
            'background:var(--clr-primary,#090e1a);color:#f8fafc;padding:2rem;text-align:center;">' +
@@ -33,6 +35,17 @@
                'color:#94a3b8;border-radius:.5rem;text-decoration:none;">← Portfolio</a>' +
         '</div>' +
       '</div>';
+
+    function render() {
+      document.body.innerHTML = html;
+      document.documentElement.style.visibility = '';
+    }
+
+    if (document.body) {
+      render();
+    } else {
+      document.addEventListener('DOMContentLoaded', render);
+    }
   }
 
   async function checkAdminAccess() {
