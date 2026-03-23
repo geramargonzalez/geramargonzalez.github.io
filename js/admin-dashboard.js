@@ -32,6 +32,7 @@
   var dashToast    = document.getElementById('dashToast');
   var dashUserInfo = document.getElementById('dashUserInfo');
   var btnLogout    = document.getElementById('btnLogout');
+  var btnAnalytics = document.getElementById('btnAnalyticsDashboard');
 
   /* ── Tabs ── */
   var tabsEl     = document.getElementById('dashTabs');
@@ -138,8 +139,30 @@
     loadProjects();
     setupTabs();
     setupLogout();
+    setupAnalyticsLink();
     setupProjectForm();
     setupArticleForm();
+  }
+
+  function setupAnalyticsLink() {
+    if (!btnAnalytics) return;
+
+    // Si el portfolio se abre localmente desde archivo o localhost,
+    // el dashboard de analíticas corre en el proyecto Next.js sobre :3000.
+    var isLocalFile = window.location.protocol === 'file:';
+    var isLocalHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+    if (isLocalFile || isLocalHost) {
+      var host = isLocalHost ? window.location.hostname : 'localhost';
+      btnAnalytics.href = window.location.protocol === 'https:'
+        ? 'https://' + host + ':3000/admin/analytics'
+        : 'http://' + host + ':3000/admin/analytics';
+    } else {
+      btnAnalytics.href = '/admin/analytics';
+    }
+
+    btnAnalytics.target = '_blank';
+    btnAnalytics.rel = 'noopener noreferrer';
   }
 
   /* ══════════════════════════════════════
