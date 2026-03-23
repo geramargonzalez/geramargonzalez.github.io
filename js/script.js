@@ -181,6 +181,7 @@
     btn.textContent = lang === 'es' ? 'EN' : 'ES';
     currentLang = lang;
     try { localStorage.setItem('lang', lang); } catch(e) {}
+    html.dispatchEvent(new CustomEvent('langchange', { detail: { lang: lang } }));
   }
 
   try {
@@ -368,4 +369,311 @@
       setTimeout(renderCards, 0);
     });
   }
+})();
+
+
+/* ─── 9. ACCESO ADMIN DESDE HOME ───────────────────────────── */
+(function homeAdminAccess() {
+  var navAdminLink   = document.getElementById('navAdminLink');
+  var heroAdminLink  = document.getElementById('heroAdminLink');
+  var form           = document.getElementById('homeLoginForm');
+  var emailEl        = document.getElementById('homeLoginEmail');
+  var passwordEl     = document.getElementById('homeLoginPassword');
+  var errorEl        = document.getElementById('homeLoginError');
+  var submitBtn      = document.getElementById('homeLoginBtn');
+  var statusEl       = document.getElementById('adminAccessStatus');
+  var panelEl        = document.getElementById('homeAdminPanel');
+  var welcomeEl      = document.getElementById('homeAdminWelcome');
+  var logoutBtn      = document.getElementById('homeLogoutBtn');
+  var fullLoginLink  = document.getElementById('homeFullLoginLink');
+  var dashboardBtn   = document.getElementById('homeDashboardBtn');
+  var togglePwBtn    = document.getElementById('homeTogglePw');
+  var togglePwIcon   = document.getElementById('homeTogglePwIcon');
+  var navMenu        = document.getElementById('navMenu');
+  var navToggle      = document.getElementById('navToggle');
+
+  if (!navAdminLink && !heroAdminLink && !form) return;
+
+  function lang() {
+    return document.documentElement.getAttribute('data-lang') || 'es';
+  }
+
+  function t(key) {
+    var copy = {
+      access: {
+        es: 'Acceso admin',
+        en: 'Admin login'
+      },
+      dashboard: {
+        es: 'Dashboard admin',
+        en: 'Admin dashboard'
+      },
+      fullLogin: {
+        es: 'Abrir página de login',
+        en: 'Open login page'
+      },
+      submit: {
+        es: 'Ingresar al dashboard',
+        en: 'Sign in to dashboard'
+      },
+      loading: {
+        es: 'Verificando…',
+        en: 'Checking…'
+      },
+      logout: {
+        es: 'Cerrar sesión',
+        en: 'Sign out'
+      },
+      dashboardCta: {
+        es: 'Ir al dashboard',
+        en: 'Go to dashboard'
+      },
+      loggedIn: {
+        es: 'Sesión iniciada como administrador.',
+        en: 'Signed in as administrator.'
+      },
+      activeSession: {
+        es: 'Ya tenés una sesión activa como administrador. Podés entrar directo al dashboard.',
+        en: 'You already have an active admin session. You can go straight to the dashboard.'
+      },
+      missingFields: {
+        es: 'Completá el email y la contraseña.',
+        en: 'Please enter your email and password.'
+      },
+      notConfigured: {
+        es: 'Supabase no está configurado. Revisá config.js.',
+        en: 'Supabase is not configured. Please check config.js.'
+      },
+      noAdminPermissions: {
+        es: 'Tu cuenta no tiene permisos de administrador.',
+        en: 'Your account does not have administrator permissions.'
+      },
+      invalidCredentials: {
+        es: 'Email o contraseña incorrectos.',
+        en: 'Incorrect email or password.'
+      },
+      emailNotConfirmed: {
+        es: 'Confirmá tu email para continuar.',
+        en: 'Please confirm your email to continue.'
+      },
+      tooManyRequests: {
+        es: 'Demasiados intentos. Esperá unos minutos e intentá de nuevo.',
+        en: 'Too many attempts. Please wait a few minutes and try again.'
+      },
+      genericError: {
+        es: 'Error al iniciar sesión. Intentá de nuevo.',
+        en: 'Could not sign in. Please try again.'
+      },
+      welcome: {
+        es: 'Sesión iniciada como administrador: ',
+        en: 'Signed in as administrator: '
+      }
+    };
+
+    return copy[key] ? (copy[key][lang()] || copy[key].es) : '';
+  }
+
+  function closeMobileMenu() {
+    if (!navMenu || !navToggle) return;
+    navMenu.classList.remove('open');
+    navToggle.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', false);
+    document.body.style.overflow = '';
+  }
+
+  function setAdminLink(link, isAdmin) {
+    if (!link) return;
+    link.textContent = isAdmin ? t('dashboard') : t('access');
+    link.setAttribute('href', isAdmin ? 'admin-dashboard.html' : '#admin-access');
+  }
+
+  function setStatus(message, isOk) {
+    if (!statusEl) return;
+    if (!message) {
+      statusEl.hidden = true;
+      statusEl.textContent = '';
+      statusEl.classList.remove('admin-access__status--ok');
+      return;
+    }
+
+    statusEl.textContent = message;
+    statusEl.hidden = false;
+    statusEl.classList.toggle('admin-access__status--ok', !!isOk);
+  }
+
+  function showError(message) {
+    if (!errorEl) return;
+    errorEl.textContent = message;
+    errorEl.hidden = false;
+  }
+
+  function clearError() {
+    if (!errorEl) return;
+    errorEl.textContent = '';
+    errorEl.hidden = true;
+  }
+
+  function setLoading(loading) {
+    if (!submitBtn) return;
+    submitBtn.disabled = loading;
+    submitBtn.textContent = loading ? t('loading') : t('submit');
+  }
+
+  function applyLabels(isAdmin) {
+    setAdminLink(navAdminLink, isAdmin);
+    setAdminLink(heroAdminLink, isAdmin);
+
+    if (submitBtn) submitBtn.textContent = t('submit');
+    if (fullLoginLink) fullLoginLink.textContent = t('fullLogin');
+    if (dashboardBtn) dashboardBtn.textContent = t('dashboardCta');
+    if (logoutBtn) logoutBtn.textContent = t('logout');
+
+    if (isAdmin) {
+      if (welcomeEl && welcomeEl.dataset.email) {
+        welcomeEl.textContent = t('welcome') + welcomeEl.dataset.email;
+      } else if (welcomeEl) {
+        welcomeEl.textContent = t('loggedIn');
+      }
+      if (!statusEl.hidden) {
+        setStatus(t('activeSession'), true);
+      }
+    }
+  }
+
+  function showLoggedOut() {
+    clearError();
+    setStatus('', false);
+    applyLabels(false);
+
+    if (form) form.hidden = false;
+    if (panelEl) panelEl.hidden = true;
+    if (welcomeEl) {
+      welcomeEl.dataset.email = '';
+      welcomeEl.textContent = t('loggedIn');
+    }
+  }
+
+  function showLoggedIn(profile) {
+    var email = (profile && profile.email) ? profile.email : '';
+
+    clearError();
+    setStatus(t('activeSession'), true);
+    applyLabels(true);
+
+    if (form) form.hidden = true;
+    if (panelEl) panelEl.hidden = false;
+    if (welcomeEl) {
+      welcomeEl.dataset.email = email;
+      welcomeEl.textContent = email ? (t('welcome') + email) : t('loggedIn');
+    }
+  }
+
+  async function refreshAdminState() {
+    if (!window.SupabaseAPI) {
+      showLoggedOut();
+      setStatus(t('notConfigured'), false);
+      return;
+    }
+
+    try {
+      var session = await window.SupabaseAPI.getSession();
+      if (!session) {
+        showLoggedOut();
+        return;
+      }
+
+      var profile = await window.SupabaseAPI.getUserProfile();
+      if (profile && profile.role === 'admin') {
+        showLoggedIn(profile);
+      } else {
+        showLoggedOut();
+      }
+    } catch (e) {
+      showLoggedOut();
+    }
+  }
+
+  if (togglePwBtn && passwordEl) {
+    togglePwBtn.addEventListener('click', function () {
+      var isHidden = passwordEl.type === 'password';
+      passwordEl.type = isHidden ? 'text' : 'password';
+      if (togglePwIcon) togglePwIcon.textContent = isHidden ? '🙈' : '👁';
+    });
+  }
+
+  if (navAdminLink) {
+    navAdminLink.addEventListener('click', function () {
+      closeMobileMenu();
+    });
+  }
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', async function () {
+      if (!window.SupabaseAPI) return;
+
+      try {
+        await window.SupabaseAPI.signOut();
+      } catch (e) {
+        /* no-op */
+      }
+
+      showLoggedOut();
+    });
+  }
+
+  if (form) {
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      clearError();
+
+      var email = emailEl ? emailEl.value.trim() : '';
+      var password = passwordEl ? passwordEl.value : '';
+
+      if (!email || !password) {
+        showError(t('missingFields'));
+        return;
+      }
+
+      if (!window.SupabaseAPI) {
+        showError(t('notConfigured'));
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        await window.SupabaseAPI.signIn(email, password);
+        var profile = await window.SupabaseAPI.getUserProfile();
+
+        if (!profile || profile.role !== 'admin') {
+          await window.SupabaseAPI.signOut();
+          showError(t('noAdminPermissions'));
+          return;
+        }
+
+        showLoggedIn(profile);
+        window.location.href = 'admin-dashboard.html';
+      } catch (err) {
+        var raw = (err && err.message) ? err.message.toLowerCase() : '';
+        if (raw.includes('invalid login') || raw.includes('invalid credentials')) {
+          showError(t('invalidCredentials'));
+        } else if (raw.includes('email not confirmed')) {
+          showError(t('emailNotConfirmed'));
+        } else if (raw.includes('rate limit') || raw.includes('too many requests')) {
+          showError(t('tooManyRequests'));
+        } else {
+          showError(t('genericError'));
+        }
+      } finally {
+        setLoading(false);
+      }
+    });
+  }
+
+  document.documentElement.addEventListener('langchange', function () {
+    var isAdminVisible = !!(panelEl && !panelEl.hidden);
+    applyLabels(isAdminVisible);
+  });
+
+  refreshAdminState();
 })();

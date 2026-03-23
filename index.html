@@ -48,6 +48,7 @@
         <!-- <a href="#articulos" class="nav-link" data-es="Artículos" data-en="Articles">Artículos</a> -->
         <a href="#beyond" class="nav-link" data-es="Más sobre mí" data-en="Beyond Work">Más sobre mí</a>
         <a href="#contacto" class="nav-link" data-es="Contacto" data-en="Contact">Contacto</a>
+        <a href="#admin-access" class="navbar__admin-link" id="navAdminLink">Acceso admin</a>
       </nav>
       <!-- Botón de idioma -->
       <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN</button>
@@ -110,6 +111,7 @@
           <div class="hero__actions">
             <a href="#proyectos" class="btn btn--primary" data-es="Ver proyectos" data-en="View projects">Ver proyectos</a>
             <a href="assets/CV.pdf" download class="btn btn--outline" data-es="Descargar CV" data-en="Download CV">Descargar CV</a>
+            <a href="#admin-access" class="btn btn--outline" id="heroAdminLink">Acceso admin</a>
             <a href="#contacto" class="btn btn--ghost" data-es="Contacto" data-en="Contact">Contacto</a>
           </div>
         </div>
@@ -813,6 +815,82 @@
           </div>
 
         </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         SECCIÓN 10.5 — ACCESO ADMIN
+         ============================================= -->
+    <section class="section admin-access" id="admin-access">
+      <div class="container admin-access__grid">
+
+        <div class="admin-access__content">
+          <span class="admin-access__eyebrow" data-es="Panel privado" data-en="Private panel">Panel privado</span>
+          <h2 class="section__title" data-es="Acceso admin" data-en="Admin access">Acceso admin</h2>
+          <p class="section__subtitle" data-es="Iniciá sesión desde la página principal para administrar proyectos y artículos del portfolio." data-en="Sign in from the home page to manage portfolio projects and articles.">Iniciá sesión desde la página principal para administrar proyectos y artículos del portfolio.</p>
+
+          <div class="admin-access__checks">
+            <div class="admin-access__check" data-es="Acceso directo al dashboard administrativo." data-en="Direct access to the admin dashboard.">Acceso directo al dashboard administrativo.</div>
+            <div class="admin-access__check" data-es="Gestión de proyectos, artículos e imágenes en Supabase." data-en="Manage projects, articles and images in Supabase.">Gestión de proyectos, artículos e imágenes en Supabase.</div>
+            <div class="admin-access__check" data-es="Si ya tenés sesión activa, podés entrar al panel con un clic." data-en="If you already have an active session, you can enter the panel in one click.">Si ya tenés sesión activa, podés entrar al panel con un clic.</div>
+          </div>
+
+          <div id="adminAccessStatus" class="admin-access__status" hidden></div>
+        </div>
+
+        <div class="admin-access__card">
+          <form id="homeLoginForm" class="admin-access__form" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="homeLoginEmail" data-es="Email" data-en="Email">Email</label>
+              <input
+                class="form-input"
+                id="homeLoginEmail"
+                type="email"
+                autocomplete="email"
+                required
+                placeholder="geramargonzalez@gmail.com"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="homeLoginPassword" data-es="Contraseña" data-en="Password">Contraseña</label>
+              <div class="login-pw-wrap">
+                <input
+                  class="form-input"
+                  id="homeLoginPassword"
+                  type="password"
+                  autocomplete="current-password"
+                  required
+                  placeholder="••••••••"
+                />
+                <button type="button" id="homeTogglePw" class="login-pw-toggle" aria-label="Mostrar/ocultar contraseña">
+                  <span id="homeTogglePwIcon">👁</span>
+                </button>
+              </div>
+            </div>
+
+            <div id="homeLoginError" class="login-error" hidden></div>
+
+            <button type="submit" class="btn btn--primary login-submit" id="homeLoginBtn">
+              Ingresar al dashboard
+            </button>
+
+            <p class="admin-access__alt-link">
+              <a href="login.html" id="homeFullLoginLink">Abrir página de login</a>
+            </p>
+          </form>
+
+          <div id="homeAdminPanel" class="admin-access__panel" hidden>
+            <p class="admin-access__panel-title" id="homeAdminWelcome">Sesión iniciada como administrador.</p>
+            <p class="admin-access__panel-copy" data-es="Tu sesión ya está activa. Podés entrar al dashboard o cerrar sesión desde aquí." data-en="Your session is already active. You can enter the dashboard or sign out from here.">Tu sesión ya está activa. Podés entrar al dashboard o cerrar sesión desde aquí.</p>
+
+            <div class="admin-access__panel-actions">
+              <a href="admin-dashboard.html" class="btn btn--primary" id="homeDashboardBtn">Ir al dashboard</a>
+              <button type="button" class="btn btn--ghost" id="homeLogoutBtn">Cerrar sesión</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
