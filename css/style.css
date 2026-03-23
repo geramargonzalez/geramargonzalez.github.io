@@ -2844,6 +2844,32 @@ h1, h2, h3, h4 {
   margin-left: auto;
 }
 
+.dashboard-page .admin-navbar-label {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.dashboard-page .dashboard-nav-actions .btn--outline,
+.dashboard-page .dashboard-nav-actions .btn--ghost {
+  color: #f8fafc;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.dashboard-page .dashboard-nav-actions .btn--outline {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.dashboard-page .dashboard-nav-actions .btn--ghost {
+  background: transparent;
+  color: #e2e8f0;
+}
+
+.dashboard-page .dashboard-nav-actions .btn--outline:hover,
+.dashboard-page .dashboard-nav-actions .btn--ghost:hover {
+  background: var(--clr-accent);
+  border-color: var(--clr-accent);
+  color: #ffffff;
+}
+
 .dashboard-user-info {
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.45);

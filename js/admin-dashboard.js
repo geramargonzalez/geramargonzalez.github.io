@@ -144,25 +144,38 @@
     setupArticleForm();
   }
 
+  function getAnalyticsDashboardUrl() {
+    if (window.ANALYTICS_DASHBOARD_URL) {
+      return String(window.ANALYTICS_DASHBOARD_URL);
+    }
+
+    if (window.location.protocol === 'file:') {
+      return 'http://localhost:3000/admin/analytics';
+    }
+
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return window.location.protocol + '//' + window.location.hostname + ':3000/admin/analytics';
+    }
+
+    return '/admin/analytics';
+  }
+
   function setupAnalyticsLink() {
     if (!btnAnalytics) return;
 
-    // Si el portfolio se abre localmente desde archivo o localhost,
-    // el dashboard de analíticas corre en el proyecto Next.js sobre :3000.
-    var isLocalFile = window.location.protocol === 'file:';
-    var isLocalHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    var analyticsUrl = getAnalyticsDashboardUrl();
+    var isLocalAnalytics = analyticsUrl.indexOf('localhost:3000') !== -1 || analyticsUrl.indexOf('127.0.0.1:3000') !== -1;
 
-    if (isLocalFile || isLocalHost) {
-      var host = isLocalHost ? window.location.hostname : 'localhost';
-      btnAnalytics.href = window.location.protocol === 'https:'
-        ? 'https://' + host + ':3000/admin/analytics'
-        : 'http://' + host + ':3000/admin/analytics';
-    } else {
-      btnAnalytics.href = '/admin/analytics';
-    }
+    btnAnalytics.href = analyticsUrl;
 
     btnAnalytics.target = '_blank';
     btnAnalytics.rel = 'noopener noreferrer';
+
+    btnAnalytics.addEventListener('click', function () {
+      if (isLocalAnalytics) {
+        showToast('Si no abre, iniciá el proyecto analytics en localhost:3000.', '');
+      }
+    });
   }
 
   /* ══════════════════════════════════════
