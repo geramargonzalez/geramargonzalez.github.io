@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model PageView {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  path      String   @db.Text
+  referrer  String?  @db.Text
+  ipHash    String   @db.VarChar(64)
+  uaHash    String?  @db.VarChar(64)
+  isBot     Boolean  @default(false)
+
+  @@index([createdAt])
+  @@index([ipHash])
+  @@index([path])
+  @@map("page_views")
+}

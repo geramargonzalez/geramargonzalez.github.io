@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  @apply bg-slate-950 text-slate-100 antialiased;
+  background-image:
+    radial-gradient(circle at top left, rgba(99, 102, 241, 0.22), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.12), transparent 30%);
+}
+
+a {
+  @apply text-inherit no-underline;
+}
+
+code,
+pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.35);
+  color: #fff;
+}
