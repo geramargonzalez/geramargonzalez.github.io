@@ -160,22 +160,18 @@
     return '/admin/analytics';
   }
 
+  function getAnalyticsLauncherUrl(target) {
+    return 'analytics-launcher.html?target=' + encodeURIComponent(target);
+  }
+
   function setupAnalyticsLink() {
     if (!btnAnalytics) return;
 
     var analyticsUrl = getAnalyticsDashboardUrl();
-    var isLocalAnalytics = analyticsUrl.indexOf('localhost:3000') !== -1 || analyticsUrl.indexOf('127.0.0.1:3000') !== -1;
-
-    btnAnalytics.href = analyticsUrl;
+    btnAnalytics.href = getAnalyticsLauncherUrl(analyticsUrl);
 
     btnAnalytics.target = '_blank';
     btnAnalytics.rel = 'noopener noreferrer';
-
-    btnAnalytics.addEventListener('click', function () {
-      if (isLocalAnalytics) {
-        showToast('Si no abre, iniciá el proyecto analytics en localhost:3000.', '');
-      }
-    });
   }
 
   /* ══════════════════════════════════════

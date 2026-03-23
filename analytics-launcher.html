@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abrir analíticas</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body.analytics-launcher-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, #090e1a 0%, #121a31 100%);
+      color: #f8fafc;
+    }
+
+    .analytics-launcher-card {
+      width: min(560px, 100%);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.28);
+      backdrop-filter: blur(14px);
+    }
+
+    .analytics-launcher-card h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: #fff;
+    }
+
+    .analytics-launcher-card p {
+      color: #cbd5e1;
+      margin-bottom: 1rem;
+    }
+
+    .analytics-launcher-url {
+      display: block;
+      padding: 0.9rem 1rem;
+      margin-bottom: 1rem;
+      border-radius: 12px;
+      background: rgba(15,23,42,0.65);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #93c5fd;
+      font-family: Consolas, monospace;
+      word-break: break-all;
+    }
+
+    .analytics-launcher-status {
+      min-height: 1.6rem;
+      color: #e2e8f0;
+      margin-bottom: 1.25rem;
+    }
+
+    .analytics-launcher-help {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 14px;
+      background: rgba(15,23,42,0.7);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .analytics-launcher-help code {
+      display: block;
+      margin-top: 0.5rem;
+      color: #fde68a;
+      white-space: pre-wrap;
+    }
+
+    .analytics-launcher-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+  </style>
+</head>
+<body class="analytics-launcher-page">
+  <main class="analytics-launcher-card">
+    <h1>📈 Abrir dashboard de analíticas</h1>
+    <p>Estoy verificando si el dashboard está disponible. Si no está levantado, te muestro una ayuda rápida para iniciarlo sin que aparezca la página de error del navegador.</p>
+
+    <span class="analytics-launcher-url" id="analyticsUrl"></span>
+    <div class="analytics-launcher-status" id="analyticsStatus">Verificando conexión…</div>
+
+    <div class="analytics-launcher-actions">
+      <a class="btn btn--primary" id="openAnalyticsLink" href="#">Abrir analíticas</a>
+      <button class="btn btn--outline" id="retryAnalyticsBtn" type="button">Reintentar</button>
+      <a class="btn btn--ghost" href="admin-dashboard.html">Volver al dashboard</a>
+    </div>
+
+    <section class="analytics-launcher-help" id="analyticsHelp" hidden>
+      <strong>No encontré el dashboard activo.</strong>
+      <p>Iniciá el proyecto <em>analytics</em> y después volvé a intentar.</p>
+      <code>npm --prefix "c:\Users\Gerardo\OneDrive - Oracle Corporation\Documents\GitHub\geramaargonzalez.github.io\analytics" run dev</code>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var target = params.get('target') || 'http://localhost:3000/admin/analytics';
+      var statusEl = document.getElementById('analyticsStatus');
+      var urlEl = document.getElementById('analyticsUrl');
+      var helpEl = document.getElementById('analyticsHelp');
+      var openLink = document.getElementById('openAnalyticsLink');
+      var retryBtn = document.getElementById('retryAnalyticsBtn');
+
+      urlEl.textContent = target;
+      openLink.href = target;
+      openLink.target = '_blank';
+      openLink.rel = 'noopener noreferrer';
+
+      function setStatus(message) {
+        statusEl.textContent = message;
+      }
+
+      function showHelp(show) {
+        helpEl.hidden = !show;
+      }
+
+      function verifyTarget() {
+        setStatus('Verificando conexión…');
+        showHelp(false);
+
+        var timeoutId = setTimeout(function () {
+          setStatus('No hubo respuesta a tiempo.');
+          showHelp(true);
+        }, 1800);
+
+        fetch(target, {
+          method: 'GET',
+          mode: 'no-cors',
+          cache: 'no-store'
+        }).then(function () {
+          clearTimeout(timeoutId);
+          setStatus('Dashboard detectado. Redirigiendo…');
+          window.location.href = target;
+        }).catch(function () {
+          clearTimeout(timeoutId);
+          setStatus('No pude abrir el dashboard automáticamente.');
+          showHelp(true);
+        });
+      }
+
+      retryBtn.addEventListener('click', verifyTarget);
+      verifyTarget();
+    }());
+  </script>
+</body>
+</html>
